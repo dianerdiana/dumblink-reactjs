@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // React Bootstrap
 import { Container, Nav, Navbar, Offcanvas, Button } from 'react-bootstrap';
 
 // Custom Components
 import Login from '../authentication/Login';
+import Register from '../authentication/Register';
 
 function NavbarLanding() {
-  const [showLogin, setShowLogin] = React.useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
 
   const toggleLogin = () => {
     setShowLogin(!showLogin);
+  };
+
+  const toggleRegister = () => {
+    setShowRegister(!showRegister);
   };
 
   return (
@@ -31,12 +37,12 @@ function NavbarLanding() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className='justify-content-end flex-grow-1 pe-3'>
-              <Nav.Item className='d-grid pe-lg-3 pb-3 pb-md-0'>
+              <Nav.Item className='d-grid pe-md-3 pb-3 pb-md-0'>
                 <Button
-                  onClick={toggleLogin}
                   size='md'
                   variant='light'
-                  className='fw-bold'>
+                  className='fw-bold'
+                  onClick={toggleLogin}>
                   Login
                 </Button>
               </Nav.Item>
@@ -44,7 +50,8 @@ function NavbarLanding() {
                 <Button
                   size='md'
                   variant='warning'
-                  className='text-white fw-bold px-4'>
+                  className='text-white fw-bold px-4'
+                  onClick={toggleRegister}>
                   Register
                 </Button>
               </Nav.Item>
@@ -54,6 +61,7 @@ function NavbarLanding() {
       </Container>
 
       <Login show={showLogin} onHide={toggleLogin} />
+      <Register show={showRegister} onHide={toggleRegister} />
     </Navbar>
   );
 }
