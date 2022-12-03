@@ -5,6 +5,11 @@
 
 * {
   font-family: Avenir, sans-serif;
+  box-sizing: border-box;
 }
 
 $warning: #ff9f00;
+
+.hero-section {
+  background-image: url('./images/background.png');
+}
