@@ -6,12 +6,12 @@ import { Nav } from 'react-bootstrap';
 const SidebarComponent = () => {
   return (
     <div
-      class='d-none d-lg-flex flex-column p-3 bg-light h-100'
+      className='d-none d-lg-flex flex-column p-3 bg-light h-100'
       style={{ width: '280px' }}
     >
       <a
         href='/'
-        class='d-flex align-items-center justify-content-center mb-3 mb-md-0 link-dark text-decoration-none'
+        className='d-flex align-items-center justify-content-center mb-3 mb-md-0 link-dark text-decoration-none'
       >
         <img src='/images/logo.svg' alt='brand' />
       </a>

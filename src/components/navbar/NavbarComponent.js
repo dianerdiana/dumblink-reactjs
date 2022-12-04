@@ -21,7 +21,7 @@ const NavbarComponent = () => {
               <img src='/images/logo.svg' alt='brand' />
             </Offcanvas.Title>
           </Offcanvas.Header>
-          <Offcanvas.Body className='d-lg-none'>
+          <Offcanvas.Body className='d-lg-none d-flex flex-column justify-content-between'>
             <Nav className='nav-pills flex-column mb-auto p-4 gap-3 fw-bold fs-5'>
               <Nav.Link className='link-dark'>
                 <img src='/images/ic_template.svg' alt='Template' />
@@ -36,11 +36,10 @@ const NavbarComponent = () => {
                 <span className='ms-3'>My Link</span>
               </Nav.Link>
             </Nav>
-            <hr className='border-white' />
             <div className='p-4'>
               <a
                 href='#'
-                className='link-dark text-decoration-none fs-5 fw-bold'
+                className='link-dark text-decoration-none fs-5 fw-bold px-2'
               >
                 <img src='/images/ic_logout.svg' alt='My Link' />
                 <span className='ms-3'>Logout</span>
