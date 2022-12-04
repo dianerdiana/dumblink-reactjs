@@ -3,12 +3,12 @@ import React from 'react';
 // React Bootstrap
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
 
-const NavbarComponent = () => {
+const NavbarComponent = ({ title }) => {
   return (
-    <Navbar bg='light' expand='lg'>
+    <Navbar bg='white' expand='lg'>
       <Container>
         <Navbar.Brand href='#' className='fw-bold fs-4'>
-          Template
+          {title}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg' />
         <Navbar.Offcanvas

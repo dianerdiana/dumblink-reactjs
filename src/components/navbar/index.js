@@ -7,7 +7,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import NavbarComponent from './NavbarComponent';
 import SidebarComponent from './SidebarComponent';
 
-const Navigation = ({ children }) => {
+const Navigation = ({ children, title }) => {
   return (
     <Container className='px-0 d-grid' style={{ minHeight: '100vh' }} fluid>
       <Row className='px-0 mx-0'>
@@ -15,7 +15,7 @@ const Navigation = ({ children }) => {
           <SidebarComponent />
         </Col>
         <Col className='px-0'>
-          <NavbarComponent />
+          <NavbarComponent title={title} />
           {children}
         </Col>
       </Row>

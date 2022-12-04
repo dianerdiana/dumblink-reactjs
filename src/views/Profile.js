@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 // Custom Components
 import Navigation from '../components/navbar';
 
-const Template = () => {
+const Profile = () => {
   const templates = [
     '/images/template_1.png',
     '/images/template_2.png',
@@ -15,7 +15,7 @@ const Template = () => {
   ];
 
   return (
-    <Navigation title='Template'>
+    <Navigation>
       <main className='bg-light' style={{ minHeight: '90.6%' }}>
         <Row className='mx-0 py-5 flex-column flex-md-row'>
           {templates.map((img, idx) => {
@@ -31,4 +31,4 @@ const Template = () => {
   );
 };
 
-export default Template;
+export default Profile;

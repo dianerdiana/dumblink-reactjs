@@ -6,7 +6,7 @@ import { Nav } from 'react-bootstrap';
 const SidebarComponent = () => {
   return (
     <div
-      className='d-none d-lg-flex flex-column p-3 bg-light h-100'
+      className='d-none d-lg-flex flex-column p-3 bg-white h-100'
       style={{ width: '280px' }}
     >
       <a
