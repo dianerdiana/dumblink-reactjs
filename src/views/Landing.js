@@ -13,7 +13,8 @@ const Landing = () => {
       </header>
       <main
         className='px-0 hero-section d-lg-flex align-items-center'
-        style={{ minHeight: '91.2vh' }}>
+        style={{ minHeight: '92vh' }}
+      >
         <Hero />
       </main>
     </Row>
