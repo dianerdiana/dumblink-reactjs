@@ -29,7 +29,7 @@ function App() {
           element: <Template />,
         },
         {
-          path: '/create-link',
+          path: '/template/create-link',
           element: <CreateLink />,
         },
         {

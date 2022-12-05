@@ -16,7 +16,7 @@ function AppRouter() {
           <SidebarComponent />
         </Col>
         <Col className='px-0'>
-          <NavbarComponent title='Component' />
+          <NavbarComponent />
           <main className='bg-light py-5 px-4' style={{ minHeight: '90.6%' }}>
             <Outlet />
           </main>

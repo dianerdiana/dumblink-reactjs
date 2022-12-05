@@ -3,9 +3,16 @@ import React from 'react';
 // React Bootstrap
 import { Nav } from 'react-bootstrap';
 
-import { Link } from 'react-router-dom';
+// Router Dom
+import { Link, useLocation } from 'react-router-dom';
+import classnames from 'classnames';
+
+// data
+import navigation from '../../navigation';
 
 const SidebarComponent = () => {
+  const location = useLocation();
+
   return (
     <div
       className='d-none d-lg-flex flex-column p-3 bg-white h-100'
@@ -19,18 +26,35 @@ const SidebarComponent = () => {
       </a>
       <hr className='border-white' />
       <Nav className='nav-pills flex-column mb-auto p-4 gap-3 fw-bold fs-5'>
-        <Nav.Link as={Link} to='/template' className='link-dark'>
-          <img src='/images/ic_template.svg' alt='Template' />
-          <span className='ms-3 text-warning'>Template</span>
-        </Nav.Link>
-        <Nav.Link as={Link} to='/profile' className='link-dark'>
-          <img src='/images/ic_profile.svg' alt='Profile' />
-          <span className='ms-3'>Profile</span>
-        </Nav.Link>
-        <Nav.Link as={Link} to='/my-links' className='link-dark'>
-          <img src='/images/ic_link.svg' alt='My Link' />
-          <span className='ms-3'>My Link</span>
-        </Nav.Link>
+        {navigation.map((linkData, index) => {
+          return (
+            <Nav.Link
+              as={Link}
+              to={linkData.path}
+              className='link-dark'
+              key={index}
+            >
+              <img
+                src={
+                  location.pathname.includes(linkData.path)
+                    ? linkData.icon.active
+                    : linkData.icon.unactive
+                }
+                alt={linkData.name}
+              />
+              <span
+                className={classnames(
+                  'ms-3',
+                  location.pathname.includes(linkData.path)
+                    ? 'text-warning'
+                    : ''
+                )}
+              >
+                {linkData.name}
+              </span>
+            </Nav.Link>
+          );
+        })}
       </Nav>
       <hr className='border-white' />
       <div className='p-4'>
@@ -38,7 +62,7 @@ const SidebarComponent = () => {
           to='/landing'
           className='link-dark text-decoration-none px-3 fs-5 fw-bold'
         >
-          <img src='/images/ic_logout.svg' alt='My Link' />
+          <img src='/icons/ic_logout.svg' alt='My Link' />
           <span className='ms-3'>Logout</span>
         </Link>
       </div>

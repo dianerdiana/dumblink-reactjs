@@ -66,7 +66,7 @@ const MyLinks = () => {
             <Form.Group>
               <InputGroup>
                 <InputGroup.Text className='border-0 border-2 border-bottom rounded-0 bg-light'>
-                  <img src='/images/ic_search.svg' alt='Search' />
+                  <img src='/icons/ic_search.svg' alt='Search' />
                 </InputGroup.Text>
                 <Input
                   className='bg-light'
@@ -106,18 +106,18 @@ const MyLinks = () => {
               <Dropdown className='d-md-none'>
                 <Dropdown.Toggle variant='transparent' size='sm'>
                   <img
-                    src='/images/ic_menu.png'
+                    src='/icons/ic_menu.png'
                     alt='View'
                     className='img-thumbnail border-0 bg-transparent'
-                    style={{ minWidth: '50px' }}
-                    width='50px'
+                    style={{ minWidth: '30px' }}
+                    width='30px'
                   />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <Dropdown.Item as='button'>
                     <div>
                       <img
-                        src='/images/ic_view.svg'
+                        src='/icons/ic_view.svg'
                         alt='View'
                         className='img-thumbnail border-0 bg-transparent'
                         width='15px'
@@ -128,7 +128,7 @@ const MyLinks = () => {
                   <Dropdown.Item as='button'>
                     <div>
                       <img
-                        src='/images/ic_edit.svg'
+                        src='/icons/ic_edit.svg'
                         alt='Edit'
                         className='img-thumbnail border-0 bg-transparent'
                         width='15px'
@@ -139,7 +139,7 @@ const MyLinks = () => {
                   <Dropdown.Item as='button' onClick={handleDelete}>
                     <div>
                       <img
-                        src='/images/ic_delete.svg'
+                        src='/icons/ic_delete.svg'
                         alt='Delete'
                         className='img-thumbnail border-0 bg-transparent'
                         width='15px'
@@ -150,18 +150,22 @@ const MyLinks = () => {
                 </Dropdown.Menu>
               </Dropdown>
               <div className='d-md-flex justify-content-end gap-2 d-none'>
-                <img
-                  src='/images/ic_view.svg'
-                  alt='View'
-                  className='img-thumbnail border-0 bg-transparent'
-                  width='50px'
-                />
-                <img
-                  src='/images/ic_edit.svg'
-                  alt='Edit'
-                  className='img-thumbnail border-0 bg-transparent'
-                  width='50px'
-                />
+                <Button variant='transparent' size='sm' className='p-0'>
+                  <img
+                    src='/icons/ic_view.svg'
+                    alt='View'
+                    className='img-thumbnail border-0 bg-transparent'
+                    width='50px'
+                  />
+                </Button>
+                <Button variant='transparent' size='sm' className='p-0'>
+                  <img
+                    src='/icons/ic_edit.svg'
+                    alt='Edit'
+                    className='img-thumbnail border-0 bg-transparent'
+                    width='50px'
+                  />
+                </Button>
                 <Button
                   variant='transparent'
                   size='sm'
@@ -169,7 +173,7 @@ const MyLinks = () => {
                   className='p-0'
                 >
                   <img
-                    src='/images/ic_delete.svg'
+                    src='/icons/ic_delete.svg'
                     alt='Delete'
                     className='img-thumbnail border-0 bg-transparent'
                     width='50px'

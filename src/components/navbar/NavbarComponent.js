@@ -2,14 +2,24 @@ import React from 'react';
 
 // React Bootstrap
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import classnames from 'classnames';
 
-const NavbarComponent = ({ title }) => {
+// data
+import navigation from '../../navigation';
+
+const NavbarComponent = () => {
+  const location = useLocation();
+
+  const title = navigation.find((data) =>
+    location.pathname.includes(data.path)
+  ).name;
+
   return (
     <Navbar bg='white' expand='lg'>
       <Container>
         <Navbar.Brand href='#' className='fw-bold fs-4'>
-          {title}
+          {title || 'Title'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg' />
         <Navbar.Offcanvas
@@ -24,25 +34,42 @@ const NavbarComponent = ({ title }) => {
           </Offcanvas.Header>
           <Offcanvas.Body className='d-lg-none d-flex flex-column justify-content-between'>
             <Nav className='nav-pills flex-column mb-auto p-4 gap-3 fw-bold fs-5'>
-              <Nav.Link as={Link} to='/template' className='link-dark'>
-                <img src='/images/ic_template.svg' alt='Template' />
-                <span className='ms-3 text-warning'>Template</span>
-              </Nav.Link>
-              <Nav.Link as={Link} to='/profile' className='link-dark'>
-                <img src='/images/ic_profile.svg' alt='Profile' />
-                <span className='ms-3'>Profile</span>
-              </Nav.Link>
-              <Nav.Link as={Link} to='/my-links' className='link-dark'>
-                <img src='/images/ic_link.svg' alt='My Link' />
-                <span className='ms-3'>My Link</span>
-              </Nav.Link>
+              {navigation.map((linkData, index) => {
+                return (
+                  <Nav.Link
+                    as={Link}
+                    to={linkData.path}
+                    className='link-dark'
+                    key={index}
+                  >
+                    <img
+                      src={
+                        location.pathname.includes(linkData.path)
+                          ? linkData.icon.active
+                          : linkData.icon.unactive
+                      }
+                      alt={linkData.name}
+                    />
+                    <span
+                      className={classnames(
+                        'ms-3',
+                        location.pathname.includes(linkData.path)
+                          ? 'text-warning'
+                          : ''
+                      )}
+                    >
+                      {linkData.name}
+                    </span>
+                  </Nav.Link>
+                );
+              })}
             </Nav>
             <div className='p-4'>
               <a
                 href='#'
                 className='link-dark text-decoration-none fs-5 fw-bold px-2'
               >
-                <img src='/images/ic_logout.svg' alt='My Link' />
+                <img src='/icons/ic_logout.svg' alt='My Link' />
                 <span className='ms-3'>Logout</span>
               </a>
             </div>
