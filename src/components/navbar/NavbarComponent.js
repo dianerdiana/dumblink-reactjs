@@ -2,6 +2,7 @@ import React from 'react';
 
 // React Bootstrap
 import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const NavbarComponent = ({ title }) => {
   return (
@@ -23,15 +24,15 @@ const NavbarComponent = ({ title }) => {
           </Offcanvas.Header>
           <Offcanvas.Body className='d-lg-none d-flex flex-column justify-content-between'>
             <Nav className='nav-pills flex-column mb-auto p-4 gap-3 fw-bold fs-5'>
-              <Nav.Link className='link-dark'>
+              <Nav.Link as={Link} to='/template' className='link-dark'>
                 <img src='/images/ic_template.svg' alt='Template' />
                 <span className='ms-3 text-warning'>Template</span>
               </Nav.Link>
-              <Nav.Link className='link-dark'>
+              <Nav.Link as={Link} to='/profile' className='link-dark'>
                 <img src='/images/ic_profile.svg' alt='Profile' />
                 <span className='ms-3'>Profile</span>
               </Nav.Link>
-              <Nav.Link className='link-dark'>
+              <Nav.Link as={Link} to='/my-links' className='link-dark'>
                 <img src='/images/ic_link.svg' alt='My Link' />
                 <span className='ms-3'>My Link</span>
               </Nav.Link>

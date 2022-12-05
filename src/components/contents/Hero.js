@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 // React Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Login from '../authentication/Login';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   const [showLogin, setShowLogin] = useState(false);
