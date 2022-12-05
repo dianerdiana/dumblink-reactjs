@@ -15,9 +15,9 @@ const defaultValues = {
 const Register = (props) => {
   const {
     control,
-    setError,
+    // setError,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
@@ -30,7 +30,8 @@ const Register = (props) => {
       size='md'
       aria-labelledby='contained-modal-title-vcenter'
       contentClassName='py-4 px-2'
-      centered>
+      centered
+    >
       <Modal.Header className='border-0 pt-3'>
         <h1 className='fw-bold'>Register</h1>
       </Modal.Header>

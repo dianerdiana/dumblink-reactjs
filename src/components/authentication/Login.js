@@ -14,9 +14,9 @@ const defaultValues = {
 const Login = (props) => {
   const {
     control,
-    setError,
+    // setError,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
   } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
@@ -29,7 +29,8 @@ const Login = (props) => {
       size='md'
       aria-labelledby='contained-modal-title-vcenter'
       contentClassName='py-4 px-2'
-      centered>
+      centered
+    >
       <Modal.Header className='border-0 pt-3'>
         <h1 className='fw-bold'>Login</h1>
       </Modal.Header>

@@ -11,15 +11,15 @@ import navigation from '../../navigation';
 const NavbarComponent = () => {
   const location = useLocation();
 
-  const title = navigation.find((data) =>
+  const dataNav = navigation.find((data) =>
     location.pathname.includes(data.path)
-  ).name;
+  );
 
   return (
     <Navbar bg='white' expand='lg'>
       <Container>
-        <Navbar.Brand href='#' className='fw-bold fs-4'>
-          {title || 'Title'}
+        <Navbar.Brand as={Link} to={dataNav.path} className='fw-bold fs-4'>
+          {dataNav.name || 'Title'}
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='offcanvasNavbar-expand-lg' />
         <Navbar.Offcanvas
@@ -65,13 +65,13 @@ const NavbarComponent = () => {
               })}
             </Nav>
             <div className='p-4'>
-              <a
-                href='#'
+              <Link
+                to='/landing'
                 className='link-dark text-decoration-none fs-5 fw-bold px-2'
               >
                 <img src='/icons/ic_logout.svg' alt='My Link' />
                 <span className='ms-3'>Logout</span>
-              </a>
+              </Link>
             </div>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
