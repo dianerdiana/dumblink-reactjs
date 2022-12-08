@@ -1,24 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // React Bootstrap
 import { Container, Nav, Navbar, Offcanvas, Button } from 'react-bootstrap';
 
-// Custom Components
-import Login from '../authentication/Login';
-import Register from '../authentication/Register';
-
-function NavbarLanding() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showRegister, setShowRegister] = useState(false);
-
-  const toggleLogin = () => {
-    setShowLogin(!showLogin);
-  };
-
-  const toggleRegister = () => {
-    setShowRegister(!showRegister);
-  };
-
+function NavbarLanding({ toggleLogin, toggleRegister }) {
   return (
     <Navbar expand='md' bg='light'>
       <Container>
@@ -29,7 +14,8 @@ function NavbarLanding() {
         <Navbar.Offcanvas
           id='NavbarLanding'
           aria-labelledby='NavbarLanding'
-          placement='end'>
+          placement='end'
+        >
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>
               <img src='/images/logo.svg' alt='brand' />
@@ -42,7 +28,8 @@ function NavbarLanding() {
                   size='md'
                   variant='light'
                   className='fw-bold'
-                  onClick={toggleLogin}>
+                  onClick={toggleLogin}
+                >
                   Login
                 </Button>
               </Nav.Item>
@@ -51,7 +38,8 @@ function NavbarLanding() {
                   size='md'
                   variant='warning'
                   className='text-white fw-bold px-4'
-                  onClick={toggleRegister}>
+                  onClick={toggleRegister}
+                >
                   Register
                 </Button>
               </Nav.Item>
@@ -59,9 +47,6 @@ function NavbarLanding() {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>
-
-      <Login show={showLogin} onHide={toggleLogin} />
-      <Register show={showRegister} onHide={toggleRegister} />
     </Navbar>
   );
 }

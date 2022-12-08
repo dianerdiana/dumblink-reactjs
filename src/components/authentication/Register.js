@@ -12,7 +12,7 @@ const defaultValues = {
   fullname: '',
 };
 
-const Register = (props) => {
+const Register = ({ onSubmit, ...props }) => {
   const {
     control,
     // setError,
@@ -20,9 +20,7 @@ const Register = (props) => {
     // formState: { errors },
   } = useForm({ defaultValues });
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const submitData = (data) => onSubmit(data);
 
   return (
     <Modal
@@ -36,7 +34,7 @@ const Register = (props) => {
         <h1 className='fw-bold'>Register</h1>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(submitData)}>
           <Form.Group className='mb-4'>
             <Controller
               name='email'
@@ -85,7 +83,7 @@ const Register = (props) => {
               }}
             />
           </Form.Group>
-          <Button variant='warning' size='lg' className='w-100'>
+          <Button type='submit' variant='warning' size='lg' className='w-100'>
             <span className='text-white'>Register</span>
           </Button>
         </Form>

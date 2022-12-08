@@ -11,7 +11,7 @@ const defaultValues = {
   password: '',
 };
 
-const Login = (props) => {
+const Login = ({ onSubmit, ...props }) => {
   const {
     control,
     // setError,
@@ -19,9 +19,7 @@ const Login = (props) => {
     // formState: { errors },
   } = useForm({ defaultValues });
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const submitData = (data) => onSubmit(data);
 
   return (
     <Modal
@@ -35,7 +33,7 @@ const Login = (props) => {
         <h1 className='fw-bold'>Login</h1>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(submitData)}>
           <Form.Group className='mb-4'>
             <Controller
               name='email'
@@ -68,7 +66,7 @@ const Login = (props) => {
               }}
             />
           </Form.Group>
-          <Button variant='warning' size='lg' className='w-100'>
+          <Button type='submit' variant='warning' size='lg' className='w-100'>
             <span className='text-white'>Login</span>
           </Button>
         </Form>
