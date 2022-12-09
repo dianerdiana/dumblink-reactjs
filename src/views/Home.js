@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // React Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
 
 // Custom Components
 import NavbarLanding from '../components/navbar/NavbarLanding';
@@ -27,6 +28,11 @@ const Landing = () => {
   const handleRegister = (data) => {
     console.log(data);
   };
+  const user = JSON.parse(localStorage.getItem('userData'));
+
+  if (user) {
+    return <Navigate replace to='/template' />;
+  }
 
   return (
     <Row className='flex-column px-0 mx-0'>

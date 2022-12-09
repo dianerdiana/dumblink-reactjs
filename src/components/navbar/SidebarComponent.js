@@ -59,7 +59,7 @@ const SidebarComponent = () => {
       <hr className='border-white' />
       <div className='p-4'>
         <Link
-          to='/landing'
+          to='/home'
           className='link-dark text-decoration-none px-3 fs-5 fw-bold'
         >
           <img src='/icons/ic_logout.svg' alt='My Link' />
