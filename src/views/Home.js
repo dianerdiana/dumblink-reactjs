@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 
 // React Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 // Custom Components
 import NavbarLanding from '../components/navbar/NavbarLanding';
 import ModalLogin from '../components/authentication/Login';
 import ModalRegister from '../components/authentication/Register';
 
-const Landing = () => {
+const Home = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const toggleLogin = () => {
     setShowLogin(!showLogin);
@@ -24,9 +21,6 @@ const Landing = () => {
     setShowRegister(!showRegister);
   };
 
-  const handleRegister = (data) => {
-    console.log(data);
-  };
   const user = JSON.parse(localStorage.getItem('userData'));
 
   if (user) {
@@ -90,4 +84,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default Home;

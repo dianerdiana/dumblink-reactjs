@@ -1,17 +1,27 @@
 import React from 'react';
 
 // React Bootstrap
-import { Nav } from 'react-bootstrap';
+import { Nav, Button } from 'react-bootstrap';
 
 // Router Dom
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { handleLogout } from '../../redux/authentication';
+import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
 // data
 import navigation from '../../navigation';
 
 const SidebarComponent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(handleLogout());
+    navigate('/home');
+  };
 
   return (
     <div
@@ -58,13 +68,14 @@ const SidebarComponent = () => {
       </Nav>
       <hr className='border-white' />
       <div className='p-4'>
-        <Link
-          to='/home'
+        <Button
+          onClick={logout}
+          variant='transparent'
           className='link-dark text-decoration-none px-3 fs-5 fw-bold'
         >
           <img src='/icons/ic_logout.svg' alt='My Link' />
           <span className='ms-3'>Logout</span>
-        </Link>
+        </Button>
       </div>
     </div>
   );
