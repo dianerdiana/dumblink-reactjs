@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 // React Bootstrap
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // Custom Components
 import NavbarLanding from '../components/navbar/NavbarLanding';
@@ -12,6 +13,8 @@ import ModalRegister from '../components/authentication/Register';
 const Landing = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const toggleLogin = () => {
     setShowLogin(!showLogin);
@@ -19,10 +22,6 @@ const Landing = () => {
 
   const toggleRegister = () => {
     setShowRegister(!showRegister);
-  };
-
-  const handleLogin = (data) => {
-    console.log(data);
   };
 
   const handleRegister = (data) => {
@@ -83,16 +82,8 @@ const Landing = () => {
             </Col>
           </Row>
 
-          <ModalLogin
-            show={showLogin}
-            onHide={toggleLogin}
-            onSubmit={handleLogin}
-          />
-          <ModalRegister
-            show={showRegister}
-            onHide={toggleRegister}
-            onSubmit={handleRegister}
-          />
+          <ModalLogin show={showLogin} onHide={toggleLogin} />
+          <ModalRegister show={showRegister} onHide={toggleRegister} />
         </Container>
       </main>
     </Row>

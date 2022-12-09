@@ -1,10 +1,8 @@
 // Redux Imports
 import { createSlice } from '@reduxjs/toolkit';
+import authDefaultConfig from '../auth/authDefaultConfig';
 
-// ** UseAuth import to get config
-import useAuth from '../auth/useAuth';
-
-const config = useAuth.authConfig;
+const config = authDefaultConfig;
 
 const initialUser = () => {
   const item = window.localStorage.getItem('userData');
@@ -18,7 +16,19 @@ export const authSlice = createSlice({
     userData: initialUser(),
   },
   reducers: {
+    handleRegister: (state, action) => {
+      console.log({ state, action });
+      state.userData = action.payload;
+      state[config.storageTokenKeyName] =
+        action.payload[config.storageTokenKeyName];
+      localStorage.setItem('userData', JSON.stringify(action.payload));
+      localStorage.setItem(
+        config.storageTokenKeyName,
+        JSON.stringify(action.payload.token)
+      );
+    },
     handleLogin: (state, action) => {
+      console.log({ state, action });
       state.userData = action.payload;
       state[config.storageTokenKeyName] =
         action.payload[config.storageTokenKeyName];
@@ -38,6 +48,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { handleLogin, handleLogout } = authSlice.actions;
+export const { handleRegister, handleLogin, handleLogout } = authSlice.actions;
 
 export default authSlice.reducer;

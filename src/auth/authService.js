@@ -84,27 +84,27 @@ export default class AuthService {
   }
 
   getRefreshToken() {
-    return localStorage.getItem(this.jwtConfig.storageRefreshTokenKeyName);
+    return localStorage.getItem(this.authConfig.storageRefreshTokenKeyName);
   }
 
   setToken(value) {
-    localStorage.setItem(this.jwtConfig.storageTokenKeyName, value);
+    localStorage.setItem(this.authConfig.storageTokenKeyName, value);
   }
 
   setRefreshToken(value) {
-    localStorage.setItem(this.jwtConfig.storageRefreshTokenKeyName, value);
+    localStorage.setItem(this.authConfig.storageRefreshTokenKeyName, value);
   }
 
   login(...args) {
-    return axios.post(this.jwtConfig.loginEndpoint, ...args);
+    return axios.post(this.authConfig.loginEndpoint, ...args);
   }
 
   register(...args) {
-    return axios.post(this.jwtConfig.registerEndpoint, ...args);
+    return axios.post(this.authConfig.registerEndpoint, ...args);
   }
 
   refreshToken() {
-    return axios.post(this.jwtConfig.refreshEndpoint, {
+    return axios.post(this.authConfig.refreshEndpoint, {
       refreshToken: this.getRefreshToken(),
     });
   }

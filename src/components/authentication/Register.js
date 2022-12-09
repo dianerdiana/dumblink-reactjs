@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // React Bootstrap
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Alert } from 'react-bootstrap';
 
 // Package
 import { useForm, Controller } from 'react-hook-form';
+import { handleRegister } from '../../redux/authentication';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import useAuth from '../../auth/useAuth';
 
 const defaultValues = {
   email: '',
@@ -13,6 +18,11 @@ const defaultValues = {
 };
 
 const Register = ({ onSubmit, ...props }) => {
+  const [message, setMessage] = useState(null);
+  const { auth } = useAuth({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     control,
     // setError,
@@ -20,7 +30,26 @@ const Register = ({ onSubmit, ...props }) => {
     // formState: { errors },
   } = useForm({ defaultValues });
 
-  const submitData = (data) => onSubmit(data);
+  const submitData = (data) => {
+    auth
+      .register({
+        email: data.email,
+        password: data.password,
+        fullname: data.fullname,
+      })
+      .then((res) => {
+        const data = {
+          ...res.data.data,
+          token: res.data.data.token,
+        };
+
+        dispatch(handleRegister(data));
+        navigate('/template');
+      })
+      .catch(({ response }) => {
+        setMessage(response.data.message);
+      });
+  };
 
   return (
     <Modal
@@ -34,6 +63,11 @@ const Register = ({ onSubmit, ...props }) => {
         <h1 className='fw-bold'>Register</h1>
       </Modal.Header>
       <Modal.Body>
+        {message && (
+          <Alert variant='danger' className='py-2'>
+            {message}
+          </Alert>
+        )}
         <Form onSubmit={handleSubmit(submitData)}>
           <Form.Group className='mb-4'>
             <Controller

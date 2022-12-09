@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // React Bootstrap
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Alert } from 'react-bootstrap';
 
 // Package
 import { useForm, Controller } from 'react-hook-form';
+import { handleLogin } from '../../redux/authentication';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+
+import useAuth from '../../auth/useAuth';
 
 const defaultValues = {
   email: '',
   password: '',
 };
 
-const Login = ({ onSubmit, ...props }) => {
+const Login = (props) => {
+  const [message, setMessage] = useState(null);
+  const { auth } = useAuth({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const {
     control,
     // setError,
@@ -19,7 +29,22 @@ const Login = ({ onSubmit, ...props }) => {
     // formState: { errors },
   } = useForm({ defaultValues });
 
-  const submitData = (data) => onSubmit(data);
+  const onSubmit = (data) => {
+    auth
+      .login({ email: data.email, password: data.password })
+      .then((res) => {
+        console.log(res.data);
+        const data = {
+          ...res.data.data,
+          token: res.data.data.token,
+        };
+        dispatch(handleLogin(data));
+        navigate('/template');
+      })
+      .catch(({ response }) => {
+        setMessage(response.data.message);
+      });
+  };
 
   return (
     <Modal
@@ -33,7 +58,12 @@ const Login = ({ onSubmit, ...props }) => {
         <h1 className='fw-bold'>Login</h1>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit(submitData)}>
+        {message && (
+          <Alert variant='danger' className='py-2'>
+            {message}
+          </Alert>
+        )}
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className='mb-4'>
             <Controller
               name='email'
