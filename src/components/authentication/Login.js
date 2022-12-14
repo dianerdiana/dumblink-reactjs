@@ -9,7 +9,7 @@ import { handleLogin } from '../../redux/authentication';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import useAuth from '../../auth/useAuth';
+import getAuth from '../../auth/getAuth';
 
 const defaultValues = {
   email: '',
@@ -18,7 +18,6 @@ const defaultValues = {
 
 const Login = (props) => {
   const [message, setMessage] = useState(null);
-  const { auth } = useAuth({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,7 +29,7 @@ const Login = (props) => {
   } = useForm({ defaultValues });
 
   const onSubmit = (data) => {
-    auth
+    getAuth
       .login({ email: data.email, password: data.password })
       .then((res) => {
         console.log(res.data);

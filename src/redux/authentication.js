@@ -1,8 +1,8 @@
 // Redux Imports
 import { createSlice } from '@reduxjs/toolkit';
-import useAuth from '../auth/useAuth';
+import getAuth from '../auth/getAuth';
 
-const config = useAuth;
+const config = getAuth.authConfig;
 
 const initialUser = () => {
   const item = window.localStorage.getItem('userData');
@@ -19,24 +19,17 @@ export const authSlice = createSlice({
     handleRegister: (state, action) => {
       console.log({ state, action });
       state.userData = action.payload;
-      state[config.storageTokenKeyName] =
-        action.payload[config.storageTokenKeyName];
+      state[config.storageTokenKeyName] = action.payload[config.storageTokenKeyName];
       localStorage.setItem('userData', JSON.stringify(action.payload));
-      localStorage.setItem(
-        config.storageTokenKeyName,
-        JSON.stringify(action.payload.token)
-      );
+      localStorage.setItem(config.storageTokenKeyName,JSON.stringify(action.payload.token));
     },
+    // handle logi
     handleLogin: (state, action) => {
       console.log({ state, action });
       state.userData = action.payload;
-      state[config.storageTokenKeyName] =
-        action.payload[config.storageTokenKeyName];
+      state[config.storageTokenKeyName] = action.payload[config.storageTokenKeyName];
       localStorage.setItem('userData', JSON.stringify(action.payload));
-      localStorage.setItem(
-        config.storageTokenKeyName,
-        JSON.stringify(action.payload.token)
-      );
+      localStorage.setItem(config.storageTokenKeyName, JSON.stringify(action.payload.token));
     },
     handleLogout: (state) => {
       state.userData = {};

@@ -9,7 +9,7 @@ import { handleRegister } from '../../redux/authentication';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import useAuth from '../../auth/useAuth';
+import getAuth from '../../auth/getAuth';
 
 const defaultValues = {
   email: '',
@@ -19,7 +19,6 @@ const defaultValues = {
 
 const Register = ({ onSubmit, ...props }) => {
   const [message, setMessage] = useState(null);
-  const { auth } = useAuth({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -31,7 +30,7 @@ const Register = ({ onSubmit, ...props }) => {
   } = useForm({ defaultValues });
 
   const submitData = (data) => {
-    auth
+    getAuth
       .register({
         email: data.email,
         password: data.password,
