@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 // React Bootstrap
 import { Button, Card, Form } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import Input from '../components/form/Input';
 
 // Package
 import { useForm, Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 const defaultValues = {
   name: '',
@@ -15,11 +16,17 @@ const defaultValues = {
 };
 
 const Profile = () => {
-  const { control, handleSubmit } = useForm({ defaultValues });
+  const { control, setValue, handleSubmit } = useForm({ defaultValues });
+  const auth = useSelector((state) => state.auth.userData);
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    setValue('name', auth.fullname);
+    setValue('email', auth.email);
+  }, [auth.length]);
 
   return (
     <Fragment>
@@ -43,32 +50,17 @@ const Profile = () => {
                 name='email'
                 control={control}
                 render={({ field }) => {
-                  return (
-                    <Input
-                      type='mail'
-                      placeholder='example@mail.com'
-                      {...field}
-                    />
-                  );
+                  return <Input type='mail' placeholder='example@mail.com' {...field} />;
                 }}
               />
             </div>
           </Card.Body>
         </Card>
         <div className='mt-5 d-flex flex-column flex-sm-row justify-content-end gap-3 pe-4'>
-          <Button
-            type='submit'
-            size='sm'
-            variant='warning'
-            className='text-white px-4 py-1 fw-bold'
-          >
+          <Button type='submit' size='sm' variant='warning' className='text-white px-4 py-1 fw-bold'>
             Save Account
           </Button>
-          <Button
-            size='sm'
-            variant='danger'
-            className='text-white px-4 py-1 fw-bold'
-          >
+          <Button size='sm' variant='danger' className='text-white px-4 py-1 fw-bold'>
             Delete Account
           </Button>
         </div>
