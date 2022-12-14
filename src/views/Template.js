@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 // React Bootstrap
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTemplate } from '../store';
 
 import { Link } from 'react-router-dom';
 
 const Template = () => {
-  const templates = [
-    '/images/template_1.png',
-    '/images/template_2.png',
-    '/images/template_3.png',
-    '/images/template_4.png',
-  ];
-
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.store);
+  const templates = useSelector((state) => state.store.templates);
 
   useEffect(() => {
     dispatch(getAllTemplate());
-    console.log(store);
-  }, [dispatch]);
+  }, [dispatch, templates.templates?.length]);
+
+  if (templates.length < 1) {
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+        }}
+        className='ms-lg-5'
+      >
+        <Spinner variant='warning' />
+      </div>
+    );
+  }
 
   return (
     <Row className='mx-0 flex-column flex-md-row'>
-      {templates.map((img, idx) => {
+      {templates.map((template) => {
         return (
-          <Col key={idx} className='mb-3'>
+          <Col key={template.id_template} className='mb-3'>
             <Link to='/template/create-link'>
-              <img src={img} alt={img} className='img-fluid' />
+              <img src={template.image} alt={template.template_name} className='img-fluid' />
             </Link>
           </Col>
         );

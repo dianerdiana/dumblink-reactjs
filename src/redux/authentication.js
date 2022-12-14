@@ -17,15 +17,14 @@ export const authSlice = createSlice({
   },
   reducers: {
     handleRegister: (state, action) => {
-      console.log({ state, action });
       state.userData = action.payload;
       state[config.storageTokenKeyName] = action.payload[config.storageTokenKeyName];
       localStorage.setItem('userData', JSON.stringify(action.payload));
-      localStorage.setItem(config.storageTokenKeyName,JSON.stringify(action.payload.token));
+      localStorage.setItem(config.storageTokenKeyName, JSON.stringify(action.payload.token));
     },
     // handle logi
     handleLogin: (state, action) => {
-      console.log({ state, action });
+      console.log(action);
       state.userData = action.payload;
       state[config.storageTokenKeyName] = action.payload[config.storageTokenKeyName];
       localStorage.setItem('userData', JSON.stringify(action.payload));

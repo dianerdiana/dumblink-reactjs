@@ -1,6 +1,7 @@
 import axios from 'axios';
 import authDefaultConfig from './authDefaultConfig';
-import { BASE_API } from './authDefaultConfig';
+
+const BASE_API = process.env.REACT_APP_BASE_API;
 
 export default class AuthService {
   // ** authConfig <= Will be used by this service
@@ -25,7 +26,7 @@ export default class AuthService {
         // ** If token is present add it to request's Authorization Header
         if (accessToken) {
           // ** eslint-disable-next-line no-param-reassign
-          config.baseURL = BASE_API + '/api/v1/';
+          config.baseURL = BASE_API;
           config.headers.Authorization = `${this.authConfig.tokenType} ${accessToken}`;
         }
         return config;
@@ -70,9 +71,7 @@ export default class AuthService {
   }
 
   onAccessTokenFetched(accessToken) {
-    this.subscribers = this.subscribers.filter((callback) =>
-      callback(accessToken)
-    );
+    this.subscribers = this.subscribers.filter((callback) => callback(accessToken));
   }
 
   addSubscriber(callback) {
