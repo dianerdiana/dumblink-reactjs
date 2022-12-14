@@ -1,15 +1,25 @@
 import React from 'react';
 
 // React Bootstrap
-import { Container, Nav, Navbar, Offcanvas } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Container, Nav, Navbar, Offcanvas, Button } from 'react-bootstrap';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { handleLogout } from '../../redux/authentication';
+import { useDispatch } from 'react-redux';
 import classnames from 'classnames';
 
 // data
 import navigation from '../../navigation';
 
 const NavbarComponent = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(handleLogout());
+    navigate('/home');
+  };
 
   const dataNav = navigation.find((data) =>
     location.pathname.includes(data.path)
@@ -65,13 +75,14 @@ const NavbarComponent = () => {
               })}
             </Nav>
             <div className='p-4'>
-              <Link
-                to='/landing'
-                className='link-dark text-decoration-none fs-5 fw-bold px-2'
+              <Button
+                onClick={logout}
+                variant='transparent'
+                className='link-dark text-decoration-none px-3 fs-5 fw-bold'
               >
                 <img src='/icons/ic_logout.svg' alt='My Link' />
                 <span className='ms-3'>Logout</span>
-              </Link>
+              </Button>
             </div>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

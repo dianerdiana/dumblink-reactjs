@@ -1,8 +1,8 @@
 // Redux Imports
 import { createSlice } from '@reduxjs/toolkit';
-import authDefaultConfig from '../auth/authDefaultConfig';
+import useAuth from '../auth/useAuth';
 
-const config = authDefaultConfig;
+const config = useAuth;
 
 const initialUser = () => {
   const item = window.localStorage.getItem('userData');
