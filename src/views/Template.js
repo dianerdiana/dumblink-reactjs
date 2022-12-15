@@ -13,7 +13,7 @@ const Template = () => {
 
   useEffect(() => {
     dispatch(getAllTemplate());
-  }, [dispatch, templates.templates?.length]);
+  }, [dispatch, templates.length]);
 
   if (templates.length < 1) {
     return (
@@ -35,7 +35,7 @@ const Template = () => {
       {templates.map((template) => {
         return (
           <Col key={template.id_template} className='mb-3'>
-            <Link to='/template/create-link'>
+            <Link to={`/template/create-link/${template.id_template}`}>
               <img src={template.image} alt={template.template_name} className='img-fluid' />
             </Link>
           </Col>

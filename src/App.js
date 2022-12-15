@@ -41,7 +41,7 @@ const App = () => {
           element: <Template />,
         },
         {
-          path: '/template/create-link',
+          path: '/template/create-link/:id',
           element: <CreateLink />,
         },
         {

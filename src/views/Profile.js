@@ -26,7 +26,7 @@ const Profile = () => {
   useEffect(() => {
     setValue('name', auth.fullname);
     setValue('email', auth.email);
-  }, [auth.length]);
+  }, [setValue, auth.fullname, auth.email]);
 
   return (
     <Fragment>

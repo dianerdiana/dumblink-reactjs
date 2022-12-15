@@ -1,7 +1,7 @@
-import React, { useRef, Fragment } from 'react';
+import React, { useRef, Fragment, useEffect } from 'react';
 
 // React Bootstrap
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
 
 // Custom Components
 import Input from '../components/form/Input';
@@ -9,13 +9,20 @@ import Label from '../components/form/Label';
 
 // Package
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+
+// Store & Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { addLinktree, getTemplate } from '../store';
+import { useParams } from 'react-router-dom';
 
 const defaultValues = {
-  titel: '',
+  title: '',
   description: '',
-  links: [
+  image: '',
+  link_group: [
     {
-      name: '',
+      title: '',
       url: '',
     },
   ],
@@ -23,55 +30,83 @@ const defaultValues = {
 
 const CreateLink = () => {
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const store = useSelector((state) => state.store.selectedTemplate);
 
   const { control, handleSubmit } = useForm({ defaultValues });
   const { fields, append, remove } = useFieldArray({
     control,
-    name: 'links',
+    name: 'link_group',
   });
 
-  const uploadFile = () => {
+  const uploadFile = (e) => {
     inputRef.current.click();
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(addLinktree(data))
+      .then((res) => {
+        const { status, message } = res.payload;
+        if (status) {
+          toast.success(message);
+        } else {
+          toast.error(message);
+        }
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
+
+  useEffect(() => {
+    dispatch(getTemplate(id));
+  }, [dispatch]);
+
+  if (store === null || store === undefined) {
+    return (
+      <div className='text-center'>
+        <Spinner variant='warning' />
+      </div>
+    );
+  }
 
   return (
     <Fragment>
-      <div className='mb-4 d-flex justify-content-between fw-bold px-3 fs-4'>
-        <span className='me-auto'>Create Link</span>
-        <Button variant='warning' size='sm' className='text-white'>
-          Publish Link
-        </Button>
-      </div>
-      <Row className='mx-0'>
-        <Col sm='12' lg='8'>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <div className='mb-4 d-flex justify-content-between fw-bold px-3 fs-4'>
+          <span className='me-auto'>Create Link</span>
+          <Button variant='warning' type='submit' size='sm' className='text-white'>
+            Publish Link
+          </Button>
+        </div>
+        <Row className='mx-0'>
+          <Col sm='12' lg='8'>
             <Card className='border-0'>
               <Card.Body>
+                <div>
+                  <Controller
+                    defaultValue={store.id_template}
+                    name='template_id'
+                    control={control}
+                    render={({ field }) => {
+                      return <Input placeholder='ex. Your Title' className='d-none' {...field} />;
+                    }}
+                  />
+                </div>
                 <div className='mb-4 d-flex'>
                   <Col sm='4'>
-                    <img
-                      src='/images/img_empty.png'
-                      alt='Empty'
-                      width='124'
-                      className='img-thumbnail border-0'
-                    />
+                    <img src='/images/img_empty.png' alt='Empty' width='124' className='img-thumbnail border-0' />
                   </Col>
                   <Col className='d-flex align-items-center ms-4'>
-                    <Form.Control
-                      type='file'
-                      className='d-none'
-                      ref={inputRef}
+                    <Controller
+                      name='image'
+                      control={control}
+                      render={({ field }) => {
+                        return <Form.Control type='file' className='d-none' ref={inputRef} {...field} />;
+                      }}
                     />
-                    <Button
-                      variant='warning'
-                      size='sm'
-                      className='text-white px-3'
-                      onClick={uploadFile}
-                    >
+                    <Button variant='warning' size='sm' className='text-white px-3' onClick={uploadFile}>
                       Upload
                     </Button>
                   </Col>
@@ -92,13 +127,7 @@ const CreateLink = () => {
                     name='description'
                     control={control}
                     render={({ field }) => {
-                      return (
-                        <Input
-                          type='text'
-                          placeholder='ex. Your Description'
-                          {...field}
-                        />
-                      );
+                      return <Input type='text' placeholder='ex. Your Description' {...field} />;
                     }}
                   />
                 </div>
@@ -144,18 +173,12 @@ const CreateLink = () => {
                             <div className='mb-3'>
                               <Label>Title Link</Label>
                               <Controller
-                                defaultValue={item.name}
-                                id={`links.${index}.name`}
-                                name={`links.${index}.name`}
+                                defaultValue={item.title}
+                                id={`link_group.${index}.title`}
+                                name={`link_group.${index}.title`}
                                 control={control}
                                 render={({ field }) => {
-                                  return (
-                                    <Input
-                                      placeholder='Instagram'
-                                      className='bg-light outline-0'
-                                      {...field}
-                                    />
-                                  );
+                                  return <Input placeholder='Instagram' className='bg-light outline-0' {...field} />;
                                 }}
                               />
                             </div>
@@ -163,8 +186,8 @@ const CreateLink = () => {
                               <Label>URL</Label>
                               <Controller
                                 defaultValue={item.url}
-                                id={`links.${index}.url`}
-                                name={`links.${index}.url`}
+                                id={`link_group.${index}.url`}
+                                name={`link_group.${index}.url`}
                                 control={control}
                                 render={({ field }) => {
                                   return (
@@ -185,16 +208,12 @@ const CreateLink = () => {
                 })}
               </Card.Body>
             </Card>
-          </Form>
-        </Col>
-        <Col className='py-4'>
-          <img
-            src='/images/template_1.png'
-            alt='Template 1'
-            className='img-fluid'
-          />
-        </Col>
-      </Row>
+          </Col>
+          <Col className='py-4'>
+            <img src={store.image} alt={store.template_name} className='img-fluid' />
+          </Col>
+        </Row>
+      </Form>
     </Fragment>
   );
 };
