@@ -35,7 +35,6 @@ const CreateLink = () => {
 
   // State
   const [image, setImage] = useState(null);
-
   const { control, handleSubmit } = useForm({ defaultValues });
   const { fields, append, remove } = useFieldArray({
     control,
@@ -43,7 +42,7 @@ const CreateLink = () => {
   });
 
   const onSubmit = (data) => {
-    if (image != null || image != undefined) {
+    if (image) {
       dispatch(
         addLinktree({
           image: image[0],
@@ -55,11 +54,11 @@ const CreateLink = () => {
           if (status) {
             toast.success(message);
           } else {
-            message.map((m, i) => {
+            for (let i = 0; i < message.length; i++) {
               setTimeout(() => {
-                toast.error(m);
+                toast.error(message[i]);
               }, 1300 * i);
-            });
+            }
           }
         }
       });
@@ -70,7 +69,7 @@ const CreateLink = () => {
 
   useEffect(() => {
     dispatch(getTemplate(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   if (store === null || store === undefined) {
     return (

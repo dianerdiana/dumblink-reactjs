@@ -17,15 +17,26 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
   return response.data.data;
 });
 
-const config = {
-  headers: {
-    'Content-type': 'multipart/form-data',
-  },
-};
-
-export const addLinktree = createAsyncThunk('app/addLinktree', async (data) => {
+export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, { dispatch }) => {
   try {
-    const response = await axios.post('/linktree/store', data, config);
+    const response = await axios.get(`/linktree/${id}/delete`);
+    await dispatch(getAllLinktree());
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
+export const addLinktree = createAsyncThunk('app/addLinktree', async (data, { dispatch }) => {
+  try {
+    const response = await axios.post('/linktree/store', data, {
+      config: {
+        headers: {
+          'Content-type': 'multipart/form-data',
+        },
+      },
+    });
+    await dispatch(getAllLinktree());
     return response.data;
   } catch (error) {
     return error.response.data;
