@@ -14,7 +14,7 @@ import { toast } from 'react-hot-toast';
 // Store & Redux
 import { useDispatch, useSelector } from 'react-redux';
 import { addLinktree, getTemplate } from '../store';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const defaultValues = {
   title: '',
@@ -30,6 +30,7 @@ const defaultValues = {
 const CreateLink = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id } = useParams();
   const store = useSelector((state) => state.store.selectedTemplate);
 
@@ -53,6 +54,7 @@ const CreateLink = () => {
           const { status, message } = res.payload;
           if (status) {
             toast.success(message);
+            navigate('/my-links');
           } else {
             for (let i = 0; i < message.length; i++) {
               setTimeout(() => {

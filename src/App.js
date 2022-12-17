@@ -11,6 +11,7 @@ import Template from './views/Template';
 import CreateLink from './views/CreateLink';
 import Profile from './views/Profile';
 import MyLinks from './views/MyLinks';
+import ViewLinktree from './views/ViewLinktree';
 
 const App = () => {
   const getHomeRoute = () => {
@@ -53,6 +54,10 @@ const App = () => {
           element: <MyLinks />,
         },
       ],
+    },
+    {
+      path: '/:unique_link',
+      element: <ViewLinktree />,
     },
     {
       path: '*',

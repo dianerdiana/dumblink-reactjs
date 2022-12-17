@@ -17,6 +17,12 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
   return response.data.data;
 });
 
+export const getViewLinktree = createAsyncThunk('app/getViewLinktree', async (unique_link) => {
+  const response = await axios.get(`/linktree/${unique_link}/view`);
+  console.log(response);
+  return response.data.data;
+});
+
 export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, { dispatch }) => {
   try {
     const response = await axios.delete(`/linktree/${id}/delete`);
