@@ -90,7 +90,7 @@ const CreateLink = () => {
           </Button>
         </div>
         <Row className='mx-0'>
-          <Col sm='12' lg='8'>
+          <Col sm='8'>
             <Card className='border-0'>
               <Card.Body>
                 <div>
@@ -156,7 +156,6 @@ const CreateLink = () => {
                 </div>
                 <div className='text-end d-flex justify-content-sm-start justify-content-between gap-3 mb-3'>
                   <Button
-                    type='submit'
                     size='sm'
                     variant='danger'
                     className='text-white px-4 py-1 fw-bold'
@@ -165,7 +164,6 @@ const CreateLink = () => {
                     Delete Link
                   </Button>
                   <Button
-                    type='submit'
                     size='sm'
                     variant='warning'
                     className='text-white px-4 py-1 fw-bold'
