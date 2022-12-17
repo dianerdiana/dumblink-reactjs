@@ -30,10 +30,8 @@ export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, 
 export const addLinktree = createAsyncThunk('app/addLinktree', async (data, { dispatch }) => {
   try {
     const response = await axios.post('/linktree/store', data, {
-      config: {
-        headers: {
-          'Content-type': 'multipart/form-data',
-        },
+      headers: {
+        'Content-type': 'multipart/form-data',
       },
     });
     await dispatch(getAllLinktree());
