@@ -17,9 +17,19 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
   return response.data.data;
 });
 
+const config = {
+  headers: {
+    'Content-type': 'multipart/form-data',
+  },
+};
+
 export const addLinktree = createAsyncThunk('app/addLinktree', async (data) => {
-  const response = await axios.post('/linktree/store', data);
-  return response.data;
+  try {
+    const response = await axios.post('/linktree/store', data, config);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
 });
 
 const appSlice = createSlice({
@@ -40,9 +50,6 @@ const appSlice = createSlice({
       })
       .addCase(getAllLinktree.fulfilled, (state, action) => {
         state.linktrees = action.payload;
-      })
-      .addCase(addLinktree.rejected, (state, action) => {
-        console.log(state, action);
       });
   },
 });

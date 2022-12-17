@@ -1,4 +1,4 @@
-import React, { useRef, Fragment, useEffect } from 'react';
+import React, { useRef, Fragment, useEffect, useState } from 'react';
 
 // React Bootstrap
 import { Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
@@ -19,7 +19,6 @@ import { useParams } from 'react-router-dom';
 const defaultValues = {
   title: '',
   description: '',
-  image: '',
   link_group: [
     {
       title: '',
@@ -34,29 +33,39 @@ const CreateLink = () => {
   const { id } = useParams();
   const store = useSelector((state) => state.store.selectedTemplate);
 
+  // State
+  const [image, setImage] = useState(null);
+
   const { control, handleSubmit } = useForm({ defaultValues });
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'link_group',
   });
 
-  const uploadFile = (e) => {
-    inputRef.current.click();
-  };
-
   const onSubmit = (data) => {
-    dispatch(addLinktree(data))
-      .then((res) => {
-        const { status, message } = res.payload;
-        if (status) {
-          toast.success(message);
-        } else {
-          toast.error(message);
+    if (image != null || image != undefined) {
+      dispatch(
+        addLinktree({
+          image: image[0],
+          ...data,
+        })
+      ).then((res) => {
+        if (res.payload) {
+          const { status, message } = res.payload;
+          if (status) {
+            toast.success(message);
+          } else {
+            message.map((m, i) => {
+              setTimeout(() => {
+                toast.error(m);
+              }, 1300 * i);
+            });
+          }
         }
-      })
-      .catch((err) => {
-        toast.error(err);
       });
+    } else {
+      toast.error('Please select your image to upload');
+    }
   };
 
   useEffect(() => {
@@ -96,17 +105,31 @@ const CreateLink = () => {
                 </div>
                 <div className='mb-4 d-flex'>
                   <Col sm='4'>
-                    <img src='/images/img_empty.png' alt='Empty' width='124' className='img-thumbnail border-0' />
+                    {image ? (
+                      <img
+                        src={URL.createObjectURL(image[0])}
+                        alt='Empty'
+                        width='124'
+                        className='img-thumbnail border-0'
+                      />
+                    ) : (
+                      <img src='/images/img_empty.png' alt='Empty' width='124' className='img-thumbnail border-0' />
+                    )}
                   </Col>
                   <Col className='d-flex align-items-center ms-4'>
-                    <Controller
+                    <Form.Control
+                      type='file'
                       name='image'
-                      control={control}
-                      render={({ field }) => {
-                        return <Form.Control type='file' className='d-none' ref={inputRef} {...field} />;
-                      }}
+                      className='d-none'
+                      ref={inputRef}
+                      onChange={(e) => setImage(e.target.files)}
                     />
-                    <Button variant='warning' size='sm' className='text-white px-3' onClick={uploadFile}>
+                    <Button
+                      variant='warning'
+                      size='sm'
+                      className='text-white px-3'
+                      onClick={() => inputRef.current.click()}
+                    >
                       Upload
                     </Button>
                   </Col>
