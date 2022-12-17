@@ -19,7 +19,7 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
 
 export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, { dispatch }) => {
   try {
-    const response = await axios.get(`/linktree/${id}/delete`);
+    const response = await axios.delete(`/linktree/${id}/delete`);
     await dispatch(getAllLinktree());
     return response.data;
   } catch (error) {

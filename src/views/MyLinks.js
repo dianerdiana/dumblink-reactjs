@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 // Redux & Store
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllLinktree } from '../store';
+import { getAllLinktree, deleteLinktree } from '../store';
+import { toast } from 'react-hot-toast';
 
 // React Bootstrap
 import { Button, Col, Dropdown, Form, InputGroup, Row, Table } from 'react-bootstrap';
@@ -15,6 +16,19 @@ import Input from '../components/form/Input';
 import { Link } from 'react-router-dom';
 
 const ModalDelete = (props) => {
+  const dispatch = useDispatch();
+  const toggleConfirm = (id) => {
+    dispatch(deleteLinktree(id)).then((res) => {
+      const { status, message } = res.payload;
+
+      if (status) {
+        toast.success(message);
+        props.onHide();
+      } else {
+        toast.error(message);
+      }
+    });
+  };
   return (
     <Modal {...props} size='lg' aria-labelledby='contained-modal-delete' contentClassName='py-4 px-2' centered>
       <Modal.Body>
@@ -22,7 +36,7 @@ const ModalDelete = (props) => {
           <h5 className='text-success'>Are you sure want to delete this link?</h5>
         </div>
         <div className='d-flex justify-content-end gap-3'>
-          <Button variant='danger' size='md' className='text-white px-5'>
+          <Button variant='danger' size='md' className='text-white px-5' onClick={() => toggleConfirm(props.id)}>
             Yes
           </Button>
           <Button variant='secondary' size='md' className='px-5' onClick={props.onHide}>
@@ -36,14 +50,15 @@ const ModalDelete = (props) => {
 
 const MyLinks = () => {
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [id_linktree, setIdLinktree] = useState(null);
   const dispatch = useDispatch();
   const linktrees = useSelector((state) => state.store.linktrees);
 
-  const handleDelete = () => {
+  const handleDelete = (id = null) => {
+    setIdLinktree(id);
     setShowModalDelete(!showModalDelete);
   };
 
-  console.log(linktrees);
   useEffect(() => {
     dispatch(getAllLinktree());
   }, [dispatch, linktrees.length]);
@@ -119,7 +134,7 @@ const MyLinks = () => {
                           <img src='/icons/ic_edit.svg' alt='Edit' className='img-thumbnail border-0 bg-transparent' />
                           <span>Edit</span>
                         </Dropdown.Item>
-                        <Dropdown.Item as='button' onClick={handleDelete}>
+                        <Dropdown.Item as='button' onClick={() => handleDelete(linktree.id_linktree)}>
                           <img
                             src='/icons/ic_delete.svg'
                             alt='Delete'
@@ -146,7 +161,12 @@ const MyLinks = () => {
                           width='50px'
                         />
                       </Button>
-                      <Button variant='transparent' size='sm' onClick={handleDelete} className='p-0'>
+                      <Button
+                        variant='transparent'
+                        size='sm'
+                        onClick={() => handleDelete(linktree.id_linktree)}
+                        className='p-0'
+                      >
                         <img
                           src='/icons/ic_delete.svg'
                           alt='Delete'
@@ -161,12 +181,12 @@ const MyLinks = () => {
             })
           ) : (
             <tr className='py-2'>
-              <td>Data is Empty</td>
+              <td className='text-center bg-warning text-white rounded-3'>Data is empty ...</td>
             </tr>
           )}
         </tbody>
       </Table>
-      <ModalDelete show={showModalDelete} onHide={handleDelete} />
+      <ModalDelete show={showModalDelete} onHide={handleDelete} id={id_linktree} />
     </Fragment>
   );
 };
