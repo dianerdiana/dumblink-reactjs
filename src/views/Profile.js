@@ -24,6 +24,8 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    document.title = 'Profile | Dumblink';
+
     setValue('name', auth.fullname);
     setValue('email', auth.email);
   }, [setValue, auth.fullname, auth.email]);

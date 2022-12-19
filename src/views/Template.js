@@ -12,6 +12,8 @@ const Template = () => {
   const templates = useSelector((state) => state.store.templates);
 
   useEffect(() => {
+    document.title = 'Templates | Dumblink';
+
     dispatch(getAllTemplate());
   }, [dispatch, templates.length]);
 

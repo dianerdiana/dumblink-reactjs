@@ -70,6 +70,8 @@ const CreateLink = () => {
   };
 
   useEffect(() => {
+    document.title = 'Create Link | Dumblink';
+
     dispatch(getTemplate(id));
   }, [dispatch, id]);
 

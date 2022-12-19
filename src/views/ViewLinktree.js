@@ -16,6 +16,8 @@ const ViewLinktree = () => {
   const { unique_link } = useParams();
 
   useEffect(() => {
+    document.title = 'Dumblink';
+
     dispatch(viewLinktree(unique_link));
   }, [dispatch, unique_link]);
 

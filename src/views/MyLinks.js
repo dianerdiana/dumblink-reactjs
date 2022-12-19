@@ -59,6 +59,8 @@ const MyLinks = () => {
   };
 
   useEffect(() => {
+    document.title = 'My Links | Dumblink';
+
     dispatch(getAllLinktree());
   }, [dispatch, linktrees.length]);
 
