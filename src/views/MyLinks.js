@@ -13,7 +13,6 @@ import Modal from 'react-bootstrap/Modal';
 
 // Custom Components
 import Input from '../components/form/Input';
-import { Link } from 'react-router-dom';
 
 const ModalDelete = (props) => {
   const dispatch = useDispatch();
@@ -102,9 +101,9 @@ const MyLinks = () => {
                   </td>
                   <td className='align-middle'>
                     <h5 className='fw-bold'>{linktree.title}</h5>
-                    <Link to={'/' + linktree.unique_link}>
+                    <a href={'/' + linktree.unique_link} target='_blank'>
                       {process.env.REACT_APP_BASE_URL + '/' + linktree.unique_link}
-                    </Link>
+                    </a>
                   </td>
                   <td className='align-middle'>
                     <h5 className='fw-bold fs-5'>{linktree.view_count}</h5>

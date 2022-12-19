@@ -17,7 +17,7 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
   return response.data.data;
 });
 
-export const getViewLinktree = createAsyncThunk('app/getViewLinktree', async (unique_link) => {
+export const viewLinktree = createAsyncThunk('app/viewLinktree', async (unique_link) => {
   const response = await axios.get(`/linktree/${unique_link}/view`);
   console.log(response);
   return response.data.data;
@@ -53,6 +53,7 @@ const appSlice = createSlice({
     templates: [],
     linktrees: [],
     selectedTemplate: null,
+    selectedLinktree: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -65,6 +66,9 @@ const appSlice = createSlice({
       })
       .addCase(getAllLinktree.fulfilled, (state, action) => {
         state.linktrees = action.payload;
+      })
+      .addCase(viewLinktree.fulfilled, (state, action) => {
+        state.selectedLinktree = action.payload;
       });
   },
 });

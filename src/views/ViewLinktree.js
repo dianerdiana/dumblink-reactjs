@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 
 // react bootstrap
-import { Row, Container, Col, Button, Image } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { Container } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getViewLinktree } from '../store';
+import { viewLinktree } from '../store';
 
 // Components
 import BasicLinktree from '../components/view/Basic';
 
 const ViewLinktree = () => {
   const dispatch = useDispatch();
+  const store = useSelector((state) => state.store.selectedLinktree);
   const { unique_link } = useParams();
 
   useEffect(() => {
-    dispatch(getViewLinktree(unique_link));
+    dispatch(viewLinktree(unique_link));
   }, [dispatch]);
   return (
     <Container
@@ -22,7 +23,7 @@ const ViewLinktree = () => {
       fluid='xxl'
       style={{ minHeight: '100vh' }}
     >
-      <BasicLinktree />
+      <BasicLinktree store={store} />
     </Container>
   );
 };
