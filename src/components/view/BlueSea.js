@@ -3,7 +3,7 @@ import React from 'react';
 // react bootstrap
 import { Container, Row, Col, Image, Card, Spinner } from 'react-bootstrap';
 
-const Basic = ({ store }) => {
+const BlueSea = ({ store }) => {
   if (!store) {
     return <Spinner variant='warning' />;
   }
@@ -12,9 +12,9 @@ const Basic = ({ store }) => {
     <Container
       className='px-0 mx-0 d-flex align-items-center justify-content-center'
       fluid='xxl'
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: '100vh', background: '#8CB2BE' }}
     >
-      <Card className='border-0 py-5 px-3 bg-light' style={{ width: 'clamp(250px, 474px, 100%)' }}>
+      <Card className='border-0 py-5 px-3' style={{ width: 'clamp(250px, 474px, 100%)', background: '#C8D4CE' }}>
         <Row className='mx-0 flex-column rounded-3'>
           <Col className='text-center align-middle mb-3'>
             <div className='text-center'>
@@ -40,11 +40,9 @@ const Basic = ({ store }) => {
                   key={link.id_link}
                   href={link.url}
                   target='_blank'
-                  className='d-block mb-3 bg-dark text-center text-white p-2 position-relative text-decoration-none'
+                  className='d-block mb-3 bg-light text-center text-dark p-2 text-decoration-none rounded-5'
+                  style={{ border: '2px solid #A6C0C4' }}
                 >
-                  <span className='me-auto position-absolute top-50 start-5 translate-middle'>
-                    <Image src='/images/img_empty.png' alt='empty' width='20px' roundedCircle fluid />
-                  </span>
                   <span className='w-100'>{link.title}</span>
                 </a>
               );
@@ -56,4 +54,4 @@ const Basic = ({ store }) => {
   );
 };
 
-export default Basic;
+export default BlueSea;

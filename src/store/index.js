@@ -19,7 +19,6 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
 
 export const viewLinktree = createAsyncThunk('app/viewLinktree', async (unique_link) => {
   const response = await axios.get(`/linktree/${unique_link}/view`);
-  console.log(response);
   return response.data.data;
 });
 

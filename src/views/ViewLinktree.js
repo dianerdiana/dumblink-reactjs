@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 
 // react bootstrap
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { viewLinktree } from '../store';
 
 // Components
-import BasicLinktree from '../components/view/Basic';
+import Basic from '../components/view/Basic';
+import BlueSea from '../components/view/BlueSea';
 
 const ViewLinktree = () => {
   const dispatch = useDispatch();
@@ -16,16 +17,25 @@ const ViewLinktree = () => {
 
   useEffect(() => {
     dispatch(viewLinktree(unique_link));
-  }, [dispatch]);
-  return (
-    <Container
-      className='px-0 mx-0 d-flex align-items-center justify-content-center'
-      fluid='xxl'
-      style={{ minHeight: '100vh' }}
-    >
-      <BasicLinktree store={store} />
-    </Container>
-  );
+  }, [dispatch, unique_link]);
+
+  if (store === null) {
+    return (
+      <Container
+        className='px-0 mx-0 d-flex align-items-center justify-content-center'
+        fluid='xxl'
+        style={{ minHeight: '100vh' }}
+      >
+        <Spinner variant='warning' />
+      </Container>
+    );
+  }
+
+  if (store.template_id === 1) {
+    return <Basic store={store} />;
+  } else if (store.template_id === 2) {
+    return <BlueSea store={store} />;
+  }
 };
 
 export default ViewLinktree;
