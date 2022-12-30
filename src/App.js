@@ -9,6 +9,7 @@ import Home from './views/Home';
 // ** Components
 import Template from './views/Template';
 import CreateLink from './views/CreateLink';
+import EditLink from './views/EditLink';
 import Profile from './views/Profile';
 import MyLinks from './views/MyLinks';
 import ViewLinktree from './views/ViewLinktree';
@@ -44,6 +45,10 @@ const App = () => {
         {
           path: '/template/create-link/:id',
           element: <CreateLink />,
+        },
+        {
+          path: '/template/:template_id/edit/:linktree_id',
+          element: <EditLink />,
         },
         {
           path: '/profile',

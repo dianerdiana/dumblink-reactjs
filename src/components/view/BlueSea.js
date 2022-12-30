@@ -22,8 +22,8 @@ const BlueSea = ({ store }) => {
                 src={store.image ? store.image : '/images/img_empty.png'}
                 alt='empty'
                 width='100px'
+                height='100px'
                 roundedCircle
-                fluid
               />
             </div>
           </Col>
@@ -40,6 +40,7 @@ const BlueSea = ({ store }) => {
                   key={link.id_link}
                   href={link.url}
                   target='_blank'
+                  rel='noreferrer'
                   className='d-block mb-3 bg-light text-center text-dark p-2 text-decoration-none rounded-5'
                   style={{ border: '2px solid #A6C0C4' }}
                 >

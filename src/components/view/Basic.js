@@ -22,8 +22,8 @@ const Basic = ({ store }) => {
                 src={store.image ? store.image : '/images/img_empty.png'}
                 alt='empty'
                 width='100px'
+                height='100px'
                 roundedCircle
-                fluid
               />
             </div>
           </Col>
@@ -40,6 +40,7 @@ const Basic = ({ store }) => {
                   key={link.id_link}
                   href={link.url}
                   target='_blank'
+                  rel='noreferrer'
                   className='d-block mb-3 bg-dark text-center text-white p-2 position-relative text-decoration-none'
                 >
                   <span className='me-auto position-absolute top-50 start-5 translate-middle'>

@@ -13,7 +13,7 @@ import { toast } from 'react-hot-toast';
 
 // Store & Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addLinktree, getTemplate } from '../store';
+import { updateLinktree, getLinktree, getTemplate } from '../store';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const defaultValues = {
@@ -31,12 +31,13 @@ const CreateLink = () => {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { template_id, linktree_id } = useParams();
   const store = useSelector((state) => state.store.selectedTemplate);
+  const linktree = useSelector((state) => state.store.selectedLinktree);
 
   // State
   const [image, setImage] = useState(null);
-  const { control, handleSubmit } = useForm({ defaultValues });
+  const { control, setValue, handleSubmit } = useForm({ defaultValues });
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'link_group',
@@ -45,8 +46,11 @@ const CreateLink = () => {
   const onSubmit = (data) => {
     if (image) {
       dispatch(
-        addLinktree({
+        updateLinktree({
           image: image[0],
+          id_linktree: linktree.id_linktree,
+          template_id: linktree.template_id,
+          old_link_id: linktree.link_id,
           ...data,
         })
       ).then((res) => {
@@ -72,10 +76,16 @@ const CreateLink = () => {
   useEffect(() => {
     document.title = 'Create Link | Dumblink';
 
-    dispatch(getTemplate(id));
-  }, [dispatch, id]);
+    dispatch(getTemplate(template_id));
+    dispatch(getLinktree(linktree_id)).then(({ payload }) => {
+      setValue('title', payload.title);
+      setValue('description', payload.description);
+      setValue('link_group', payload.links);
+      setImage(payload.image);
+    });
+  }, [dispatch, template_id, linktree_id]);
 
-  if (store === null || store === undefined) {
+  if (!store || !linktree) {
     return (
       <div className='text-center'>
         <Spinner variant='warning' />
@@ -110,7 +120,7 @@ const CreateLink = () => {
                   <Col sm='4'>
                     {image ? (
                       <img
-                        src={URL.createObjectURL(image[0])}
+                        src={typeof image == 'string' ? image : URL.createObjectURL(image[0])}
                         alt='Empty'
                         width='124'
                         className='img-thumbnail border-0'

@@ -32,7 +32,6 @@ const Login = (props) => {
     getAuth
       .login({ email: data.email, password: data.password })
       .then((res) => {
-        console.log(res.data);
         const data = {
           ...res.data.data,
           token: res.data.data.token,
@@ -46,13 +45,7 @@ const Login = (props) => {
   };
 
   return (
-    <Modal
-      {...props}
-      size='md'
-      aria-labelledby='contained-modal-title-vcenter'
-      contentClassName='py-4 px-2'
-      centered
-    >
+    <Modal {...props} size='md' aria-labelledby='contained-modal-title-vcenter' contentClassName='py-4 px-2' centered>
       <Modal.Header className='border-0 pt-3'>
         <h1 className='fw-bold'>Login</h1>
       </Modal.Header>
@@ -100,8 +93,7 @@ const Login = (props) => {
           </Button>
         </Form>
         <div className='text-center mt-3'>
-          Don't have an account ? Klik{' '}
-          <span className='fw-bold cursor-pointer'>Here</span>
+          Don't have an account ? Klik <span className='fw-bold cursor-pointer'>Here</span>
         </div>
       </Modal.Body>
     </Modal>

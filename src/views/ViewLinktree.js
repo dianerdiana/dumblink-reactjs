@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { viewLinktree } from '../store';
+import { updateCount, viewLinktree } from '../store';
 
 // Components
 import Basic from '../components/view/Basic';
@@ -19,6 +19,7 @@ const ViewLinktree = () => {
     document.title = 'Dumblink';
 
     dispatch(viewLinktree(unique_link));
+    dispatch(updateCount(unique_link));
   }, [dispatch, unique_link]);
 
   if (store === null) {

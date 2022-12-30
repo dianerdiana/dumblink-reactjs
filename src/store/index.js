@@ -17,16 +17,10 @@ export const getAllLinktree = createAsyncThunk('app/getAllLinktree', async () =>
   return response.data.data;
 });
 
-export const viewLinktree = createAsyncThunk('app/viewLinktree', async (unique_link) => {
-  const response = await axios.get(`/linktree/${unique_link}/view`);
-  return response.data.data;
-});
-
-export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, { dispatch }) => {
+export const getLinktree = createAsyncThunk('app/getLinktree', async (id) => {
   try {
-    const response = await axios.delete(`/linktree/${id}/delete`);
-    await dispatch(getAllLinktree());
-    return response.data;
+    const response = await axios.get(`/linktree/${id}/edit`);
+    return response.data.data;
   } catch (error) {
     return error.response.data;
   }
@@ -39,6 +33,44 @@ export const addLinktree = createAsyncThunk('app/addLinktree', async (data, { di
         'Content-type': 'multipart/form-data',
       },
     });
+    await dispatch(getAllLinktree());
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
+export const updateLinktree = createAsyncThunk('app/updateLinktree', async (data, { dispatch }) => {
+  try {
+    const response = await axios.put('/linktree/update', data, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+    });
+    await dispatch(getAllLinktree());
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
+export const updateCount = createAsyncThunk('app/updateCount', async (unique_link) => {
+  try {
+    const response = await axios.post(`/linktree/${unique_link}/count`);
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+});
+
+export const viewLinktree = createAsyncThunk('app/viewLinktree', async (unique_link) => {
+  const response = await axios.get(`/linktree/${unique_link}/view`);
+  return response.data.data;
+});
+
+export const deleteLinktree = createAsyncThunk('app/deleteLinktree', async (id, { dispatch }) => {
+  try {
+    const response = await axios.delete(`/linktree/${id}/delete`);
     await dispatch(getAllLinktree());
     return response.data;
   } catch (error) {
@@ -65,6 +97,9 @@ const appSlice = createSlice({
       })
       .addCase(getAllLinktree.fulfilled, (state, action) => {
         state.linktrees = action.payload;
+      })
+      .addCase(getLinktree.fulfilled, (state, action) => {
+        state.selectedLinktree = action.payload;
       })
       .addCase(viewLinktree.fulfilled, (state, action) => {
         state.selectedLinktree = action.payload;

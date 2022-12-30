@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 // Redux & Store
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllLinktree, deleteLinktree } from '../store';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 // React Bootstrap
@@ -103,7 +104,7 @@ const MyLinks = () => {
                   </td>
                   <td className='align-middle'>
                     <h5 className='fw-bold'>{linktree.title}</h5>
-                    <a href={'/' + linktree.unique_link} target='_blank'>
+                    <a href={'/' + linktree.unique_link} target='_blank' rel='noreferrer'>
                       {process.env.REACT_APP_BASE_URL + '/' + linktree.unique_link}
                     </a>
                   </td>
@@ -122,17 +123,31 @@ const MyLinks = () => {
                         />
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
-                        <Dropdown.Item as='button'>
+                        <Dropdown.Item
+                          href={'/' + linktree.unique_link}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='btn btn-sm btn-transparent'
+                        >
                           <img
                             src='/icons/ic_view.svg'
                             alt='View'
                             className='img-thumbnail border-0 bg-transparent'
-                            width='15px'
+                            width='30px'
                           />
                           <span>View</span>
                         </Dropdown.Item>
-                        <Dropdown.Item as='button'>
-                          <img src='/icons/ic_edit.svg' alt='Edit' className='img-thumbnail border-0 bg-transparent' />
+                        <Dropdown.Item
+                          as={Link}
+                          to={`/template/${linktree.template_id}/edit/${linktree.id_linktree}`}
+                          className='btn btn-sm btn-transparent'
+                        >
+                          <img
+                            src='/icons/ic_edit.svg'
+                            alt='Edit'
+                            className='img-thumbnail border-0 bg-transparent'
+                            width='30px'
+                          />
                           <span>Edit</span>
                         </Dropdown.Item>
                         <Dropdown.Item as='button' onClick={() => handleDelete(linktree.id_linktree)}>
@@ -140,28 +155,32 @@ const MyLinks = () => {
                             src='/icons/ic_delete.svg'
                             alt='Delete'
                             className='img-thumbnail border-0 bg-transparent'
+                            width='30px'
                           />
                           <span>Delete</span>
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
                     <div className='d-md-flex justify-content-end gap-2 d-none'>
-                      <Button variant='transparent' size='sm' className='p-0'>
+                      <a href={'/' + linktree.unique_link} target='_blank' className='btn btn-sm btn-transparent p-0'>
                         <img
                           src='/icons/ic_view.svg'
                           alt='View'
                           className='img-thumbnail border-0 bg-transparent'
                           width='50px'
                         />
-                      </Button>
-                      <Button variant='transparent' size='sm' className='p-0'>
+                      </a>
+                      <Link
+                        to={`/template/${linktree.template_id}/edit/${linktree.id_linktree}`}
+                        className='btn btn-sm btn-transparent p-0'
+                      >
                         <img
                           src='/icons/ic_edit.svg'
                           alt='Edit'
                           className='img-thumbnail border-0 bg-transparent'
                           width='50px'
                         />
-                      </Button>
+                      </Link>
                       <Button
                         variant='transparent'
                         size='sm'
