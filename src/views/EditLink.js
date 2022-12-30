@@ -83,7 +83,7 @@ const CreateLink = () => {
       setValue('link_group', payload.links);
       setImage(payload.image);
     });
-  }, [dispatch, template_id, linktree_id]);
+  }, [dispatch, setValue, template_id, linktree_id]);
 
   if (!store || !linktree) {
     return (

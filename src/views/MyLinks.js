@@ -162,7 +162,12 @@ const MyLinks = () => {
                       </Dropdown.Menu>
                     </Dropdown>
                     <div className='d-md-flex justify-content-end gap-2 d-none'>
-                      <a href={'/' + linktree.unique_link} target='_blank' className='btn btn-sm btn-transparent p-0'>
+                      <a
+                        href={'/' + linktree.unique_link}
+                        target='_blank'
+                        rel='noreferrer'
+                        className='btn btn-sm btn-transparent p-0'
+                      >
                         <img
                           src='/icons/ic_view.svg'
                           alt='View'
