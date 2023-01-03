@@ -56,11 +56,13 @@ const CreateLink = () => {
             toast.success(message);
             navigate('/my-links');
           } else {
-            for (let i = 0; i < message.length; i++) {
-              setTimeout(() => {
-                toast.error(message[i]);
-              }, 1300 * i);
-            }
+            toast.error(message);
+
+            // for (let i = 0; i < message.length; i++) {
+            //   setTimeout(() => {
+            //     toast.error(message[i]);
+            //   }, 1300 * i);
+            // }
           }
         }
       });
